@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
     <title>Todo App</title>
+    <script
+      src="https://kit.fontawesome.com/2d78478fcd.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <h1>Todo List:</h1>
     <ul class="todos-list">
       <% for(let i = 0; i < todosArr.length; i++) { %> <%
       if(todosArr[i].isCompleted) { %>
-      <li class="completed"><%= todosArr[i].todoName %></li>
+      <li>
+        <span class="completed"><%= todosArr[i].todoName %></span>
+        <i class="fa-solid fa-trash" style="color: #000000"></i>
+      </li>
       <% } else { %>
-      <li><%= todosArr[i].todoName %></li>
+      <li>
+        <span><%= todosArr[i].todoName %></span>
+        <i class="fa-solid fa-trash" style="color: #000000"></i>
+      </li>
       <% } %> <% } %>
     </ul>
     <form action="/addTodo" method="post">

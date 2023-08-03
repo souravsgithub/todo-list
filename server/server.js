@@ -62,6 +62,17 @@ MongoClient.connect(
         });
     });
 
+    app.delete("/deleteTodo", (req, res) => {
+      todosCollection
+        .deleteOne({ todoName: req.body.todoName }, {})
+        .then((response) => {
+          res.json("Successfully deleted the todo item!");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+
     app.listen(process.env.PORT || PORT, (req, res) => {
       console.log("The server has started on port 8000!");
     });
