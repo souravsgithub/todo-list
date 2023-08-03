@@ -18,6 +18,7 @@ MongoClient.connect(
     app.use(cors());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
+    app.use(express.static("public"));
 
     app.get("/", (req, res) => {
       todosCollection
@@ -35,10 +36,30 @@ MongoClient.connect(
       const todoName = req.body["todo-item"];
       todosCollection.insertOne({
         todoName,
-        isComplete: false,
+        isCompleted: false,
         isDeleted: false,
       });
       res.redirect("/");
+    });
+
+    app.put("/completeTodo", (req, res) => {
+      todosCollection
+        .findOneAndUpdate(
+          { todoName: req.body.todoName },
+          {
+            $set: {
+              todoName: req.body.todoName,
+              isCompleted: req.body.isCompleted,
+              isDeleted: req.body.isDeleted,
+            },
+          }
+        )
+        .then((response) => {
+          res.json("Success");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
 
     app.listen(process.env.PORT || PORT, (req, res) => {
