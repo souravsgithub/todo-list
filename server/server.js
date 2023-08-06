@@ -20,16 +20,13 @@ MongoClient.connect(
     app.use(express.json());
     app.use(express.static("public"));
 
-    app.get("/", (req, res) => {
-      todosCollection
-        .find()
-        .toArray()
-        .then((todos) => {
-          res.render("index.ejs", { todosArr: todos });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    app.get("/", async (req, res) => {
+      try {
+        const todos = await todosCollection.find().toArray();
+        res.render("index.ejs", { todos });
+      } catch (err) {
+        console.log(err);
+      }
     });
 
     app.post("/addTodo", (req, res) => {
@@ -42,7 +39,7 @@ MongoClient.connect(
       res.redirect("/");
     });
 
-    app.put("/completeTodo", (req, res) => {
+    app.put("/completeTodo", async (req, res) => {
       todosCollection
         .findOneAndUpdate(
           { todoName: req.body.todoName },

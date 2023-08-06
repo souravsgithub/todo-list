@@ -13,15 +13,15 @@
   <body>
     <h1>Todo List:</h1>
     <ul class="todos-list">
-      <% for(let i = 0; i < todosArr.length; i++) { %> <%
-      if(todosArr[i].isCompleted) { %>
+      <% for(let i = 0; i < todos.length; i++) { %> <% if(todos[i].isCompleted)
+      { %>
       <li>
-        <span class="completed"><%= todosArr[i].todoName %></span>
+        <span class="completed"><%= todos[i].todoName %></span>
         <i class="fa-solid fa-trash" style="color: #000000"></i>
       </li>
       <% } else { %>
       <li>
-        <span><%= todosArr[i].todoName %></span>
+        <span><%= todos[i].todoName %></span>
         <i class="fa-solid fa-trash" style="color: #000000"></i>
       </li>
       <% } %> <% } %>
